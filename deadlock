@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+int main() {
+    int chef, r, ingredients, sum = 0, count = 0;
+    printf("enter no. of chefs ");
+    scanf("%d", &chef);
+    printf("enter no. of ingredients a chef can have ");
+    scanf("%d", &r);
+    ingredients = (chef * r) - chef - 1;
+    int ingredients_allocated[chef];
+
+    for (int i = 0; i < chef; i++) {
+        printf("enter ingredients_allocated for chef %d ", i + 1);
+        scanf("%d", &ingredients_allocated[i]);
+    }
+    for (int i = 0; i < chef; i++) {
+        sum = sum + ingredients_allocated[i];
+    }
+
+    if (sum > ingredients) {
+        return 0;
+    }
+
+    int ingredients_available = ingredients - sum;
+    while (count < chef) {
+        for (int i = 0; i < chef; i++) {
+            if ((ingredients_allocated[i] + ingredients_available) >= r && (ingredients_allocated[i] != -1)) {
+                printf("chef %d done cooking\n", i + 1);
+                ingredients_available = ingredients_allocated[i] + ingredients_available;
+                ingredients_allocated[i] = -1;
+                count++;
+            }
+        }
+    }
+    return 0;
+}
